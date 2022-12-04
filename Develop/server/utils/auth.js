@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+import { gql } from '@apollo/client';
 
 // set token secret and expiration date
 const secret = 'mysecretsshhhhh';
