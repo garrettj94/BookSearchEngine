@@ -4,10 +4,11 @@ export const QUERY_ME= gql`
 
   query me{
     me{
-      _id
+      token
       username
       email
-      saveBooks{
+      _id
+      savedBooks{
         bookCount
         authors
         description
