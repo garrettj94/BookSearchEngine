@@ -1,11 +1,11 @@
 
-const { Book, User } = require('../models');
+const { User } = require('../models');
 const { signToken } = require('../utils/auth');
 const {AuthenticationError} = require('apollo-server-express')
 
 const resolvers = {
   Query: {
-    Login: async (parent, args, context) => {
+    me: async (parent, args, context) => {
       if (context.user) {
         const userInfo = await User.findOne({ _id: context.user._id })
           .select('-__V -password')
@@ -17,7 +17,7 @@ const resolvers = {
 
   },
   Mutation: {
-    Login: async (parent, args) => {
+    login: async (parent, args) => {
       const user = await User.findOne({ email });
       if (!user) {
         throw new AuthenticationError('You must be logged in to veiw page')
@@ -26,8 +26,8 @@ const resolvers = {
       const token = signToken(user)
       return { token, user }
     },
-    createUser: async (parent, args) => {
-      const user = await User.create(args);
+    addUser: async (parent, args) => {
+      const user = await User.add(args);
       const token = signToken(user)
       return { token, user }
     },
